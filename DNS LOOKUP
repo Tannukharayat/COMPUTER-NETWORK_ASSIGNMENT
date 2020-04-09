@@ -1,0 +1,24 @@
+import socket
+
+print("1.Get ip")
+print("2.Get DNS")
+
+choice=input("Enter choice::")   #input()-function in python to take input,input is taken as string
+
+if choice=='1':
+ print("Enter the DNS whose ip u wnt to know:")
+ s=input()
+ try:
+  addr1 = socket.gethostbyname(s)
+  print(addr1)
+ except exception:
+  print("Error")
+
+if choice=='2':
+ print("Enter the ip whose DNS u want to know:")
+ s=input()
+ try:
+  host1=socket.gethostbyaddr(s)
+  print(host1)
+ except exception:
+  print("Error")
