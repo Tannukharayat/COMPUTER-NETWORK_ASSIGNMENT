@@ -1,0 +1,69 @@
+import java.util.*;
+import java.lang.*;
+
+class dikss
+{
+	static int dist(int distance[], int vis[],int size)
+	{
+		int min_index=0,min_value=99999;
+		for(int i=0;i<size;i++)
+		{
+			if(vis[i]==0&&min_value>distance[i])
+			{
+				min_index=i;
+				min_value=distance[i];
+			}
+		}
+		return min_index;
+	}
+	static void dikstras(int arr[][],int distance[],int vis[],int size,int src)
+	{
+		for(int i=0;i<size;i++)
+		{
+			if(arr[src][i]==0)
+			distance[i]=99999;
+			else distance[i]=arr[src][i];
+		}
+		distance[src]=0;
+		for(int i=0;i<size;i++)
+		{
+			int min_index=dist(distance,vis,size);
+			vis[min_index]=1;
+			for(int j=0;j<size;j++)
+			{
+				if(vis[j]==0&&distance[j]>distance[min_index]+arr[min_index][j]&&arr[min_index][j]!=0)
+				{
+					distance[j]=distance[min_index]+arr[min_index][j];
+				}
+			}
+		}	
+	}
+		
+	public static void main(String[] args)
+	{
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter the number of router");
+		int t = input.nextInt();
+		System.out.println("Enter the distance matrix for the distance between router");
+		int arr[][]=new int[t][t];
+		int distance[]=new int[t];
+		int vis[]=new int[t];
+		System.out.println("Enter the source");
+		int src = input.nextInt();
+		
+		for(int i=0;i<t;i++)
+		{
+			distance[i]=0;
+			vis[i]=0;
+			for(int j=0;j<t;j++)
+			{
+				arr[i][j]=input.nextInt();
+			}
+		}
+		dikstras(arr,distance,vis,t,src);
+		for(int i=0;i<t;i++)
+		{
+			System.out.println(distance[i]);
+		}
+	}
+}
