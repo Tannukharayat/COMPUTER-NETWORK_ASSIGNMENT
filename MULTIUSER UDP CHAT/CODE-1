@@ -1,0 +1,20 @@
+from socket import *
+import _thread
+	
+def reciver():
+	while True:
+		s=socket(AF_INET, SOCK_DGRAM)
+		s.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+		s.bind(('',12345))
+		m=s.recvfrom(1024)
+		print('[' + m[1][0] + ':' + str(m[1][1]) + '] :: ' + m[0].decode())
+		
+if __name__ == '__main__':
+	s=socket(AF_INET, SOCK_DGRAM)
+	s.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+	s.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
+	_thread.start_new_thread(reciver, ())
+	print('Ready to chat.')
+	while True:
+		data = input()
+		s.sendto(data.encode() ,('255.255.255.255',12345))
