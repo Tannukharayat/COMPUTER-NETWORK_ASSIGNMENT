@@ -1,0 +1,64 @@
+import math
+
+def classC(bits):
+	mask=""
+	for x in range(8-bits):
+		mask=mask+'1'
+	for x in range(bits):
+		mask=mask+'0'
+	
+	mask=int(mask,2)
+	
+	print("The subnet mask is","255. 255. 255.",mask)
+	print("The subnet length is:",24+(8-bits))
+
+	no_of_network=pow(2,(8-bits))
+	r=0
+	add=pow(2,bits)
+	for x in range(no_of_network):
+		print("192.168.144.",r,"     --->   ","192. 168. 144.",(r+add-1))
+		r=r+add
+		
+def classB(bits):
+	mask=""
+	bits=bits-8
+	for x in range(8-bits):
+		mask=mask+'1'
+	for x in range(bits):
+		mask=mask+'0'
+	
+	mask=int(mask,2)
+	
+	print("The subnet mask is","255. 255." ,mask,".0")
+	print("The subnet length is:",16+(8-bits))
+
+
+def classA(bits):
+	mask=""
+	bits=bits-16
+	for x in range(8-bits):
+		mask=mask+'1'
+	for x in range(bits):
+		mask=mask+'0'
+		
+	mask=int(mask,2)
+	
+	print("The subnet mask is:","255.",mask,".0.0")
+	print("The subnet length is:",8+(8-bits))
+
+
+pc=input("Enter the number of PCs:")
+pc=int(pc)
+
+bits=math.log(pc,2)
+bits=int(math.ceil(bits))
+
+if bits>0 and bits<=8:
+	classC(bits)
+if bits>=9 and bits<=16:
+	classB(bits)
+if bits>=17 and bits>=24:
+	classA(bits)
+
+
+#to convert into int or number int(mask,2) from string 
